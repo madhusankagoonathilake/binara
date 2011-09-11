@@ -37,7 +37,6 @@ class binaraCAPTCHA {
 
     protected final function generateImage(array $chars) {
 
-
         $image = imagecreatetruecolor($this->config->get('width'), $this->config->get('height'));
         $white = imagecolorallocate($image, 255, 255, 255);
         $pink = imagecolorallocate($image, 255, 200, 200);
@@ -57,9 +56,10 @@ class binaraCAPTCHA {
 
             $boundBox = imageftbbox($size, $angle, $font, $char);
 
-            $x += ($boundBox[2] - $boundBox[0]) + rand(2, 3);
+            $x += ($boundBox[2] - $boundBox[0]) + rand(3, 4);
             $y = 50 + floor(($boundBox[7] - $boundBox[1]) / 3);
-            imagefttext($image, $size, $angle, $x, $y, $black, $font, $char) or die();
+
+            imagefttext($image, $size, $angle, $x, $y, $black, $font, $char);
         }
 
         $this->image = $image;
@@ -98,7 +98,7 @@ class binaraCAPTCHA {
         $directoryIterator = new DirectoryIterator($fontsDirectory);
         foreach ($directoryIterator as $fileInfo) {
             $file = $fileInfo->getFilename();
-            
+
             if (preg_match('/\.[ot]tf$/', $file)) {
                 $paths[] = $fontsDirectory . $file;
             }

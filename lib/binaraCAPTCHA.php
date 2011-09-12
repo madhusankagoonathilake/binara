@@ -89,7 +89,7 @@ class binaraCAPTCHA {
      * @return array 
      */
     protected final function generateRandomChars() {
-        $length = rand(4, 6);
+        $length = rand($this->config->get('min-number-of-chars'), $this->config->get('max-number-of-chars'));
         $chars = array();
         for ($i = 0; $i < $length; $i++) {
             $seed = rand(100, 999);

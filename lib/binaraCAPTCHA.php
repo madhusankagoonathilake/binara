@@ -47,7 +47,7 @@ class binaraCAPTCHA {
 
         imagefill($image, 0, 0, $white);
 
-        $x = rand(10, 20);
+        $x = rand(5, 8);
 
         $prevMidRightX = null;
         $prevMidRightY = null;

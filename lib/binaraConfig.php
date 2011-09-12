@@ -19,7 +19,7 @@ class binaraConfig {
     private function __construct() {
         $this->configurations = array(
             'fonts-directory' => dirname(__FILE__) . '/../fonts/',
-            'width' => 240,
+            'width' => 260,
             'height' => 80,
         );
     }

@@ -32,7 +32,7 @@ class binaraCAPTCHA {
     }
 
     public function verify($input) {
-        return ($_SESSION['binara.CAPTCHA-string'] == $input);
+        return ($_SESSION[$this->config->get('session-value-index')] == $input);
     }
 
     protected final function generateImage(array $chars) {
@@ -107,7 +107,7 @@ class binaraCAPTCHA {
     }
 
     protected final function storeString(array $chars) {
-        $_SESSION['binara.CAPTCHA-string'] = implode('', $chars);
+        $_SESSION[$this->config->get('session-value-index')] = implode('', $chars);
     }
 
     protected final function getFontPaths() {

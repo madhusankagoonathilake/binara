@@ -24,6 +24,7 @@ class binaraConfig {
             'min-number-of-chars' => 4,
             'max-number-of-chars' => 6,
             'session-value-index' => 'binara.CAPTCHA-string',
+            'image-path' => './',
         );
     }
 

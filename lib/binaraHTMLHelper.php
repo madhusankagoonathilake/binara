@@ -25,7 +25,7 @@ class binaraHTMLHelper {
      * @return string 
      */
     public function renderCAPTCHADiv($output = true) {
-        $imagePath = binaraConfig::instance()->get('image-path');
+        $imagePath = binaraConfig::instance()->get('html-helper-image-path');
 
         $html = '';
         $html .= '<div>';

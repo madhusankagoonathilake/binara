@@ -28,7 +28,7 @@ class binaraHTMLHelper {
         $imagePath = binaraConfig::instance()->get('html-helper-image-path');
 
         $html = '';
-        $html .= '<div>';
+        $html .= '<div id="' . binaraConfig::instance()->get('html-helper-div-id') . '">';
         $html .='<img src="' . $imagePath . 'image.php" alt="binaraCAPTCHA" title="binaraCAPTCHA" id="binaraCAPTCHA" />';
         $html .='<br />';
         $html .='<a href="javascript: document.getElementById(\'binaraCAPTCHA\').src = \'' . $imagePath . 'image.php?seed=\' + Math.random();">Reload</a>';

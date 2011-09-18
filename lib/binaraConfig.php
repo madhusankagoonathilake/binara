@@ -25,6 +25,7 @@ class binaraConfig {
             'max-number-of-chars' => 6,
             'session-value-index' => 'binara.CAPTCHA-string',
             'html-helper-image-path' => './',
+            'html-helper-div-id' => 'divCAPTCHA',
         );
     }
 

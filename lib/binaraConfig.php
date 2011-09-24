@@ -27,7 +27,7 @@ class binaraConfig {
             'session-value-index' => 'binara.CAPTCHA-string',
             'html-helper-image-path' => './',
             'html-helper-div-id' => 'divCAPTCHA',
-            'html-helper-reload-help-text' => 'Reload',
+            'html-helper-reload-help-text' => 'Reload Image',
         );
     }
 

@@ -39,7 +39,6 @@ class binaraHTMLHelper {
         $html .= '<img src="' . $imagePath . 'image.php" alt="binaraCAPTCHA" title="binaraCAPTCHA" id="binaraCAPTCHA" />';
         $html .= '<br />';
         $html .= '<label for="' . $inputFieldName . '">' . $inputLabelText . '</label>';
-        $html .= '<br />';
         $html .= '<input type="text" id="' . $inputFieldName . '" name="' . $inputFieldName . '" />';
         $html .= '<br />';
         $html .= '<span id="' . $inputTipSpanId . '">' . $inputTipText . '</span>';

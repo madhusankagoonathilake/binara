@@ -29,12 +29,15 @@ class binaraHTMLHelper {
 
         $inputFieldName = binaraConfig::instance()->get('input-field-name');
         $htmlHelperDivId = binaraConfig::instance()->get('html-helper-div-id');
+        $htmlHelperReloadHelpText = binaraConfig::instance()->get('html-helper-reload-help-text');
         
         $html = '';
         $html .= '<div id="' . $htmlHelperDivId . '">';
-        $html .='<img src="' . $imagePath . 'image.php" alt="binaraCAPTCHA" title="binaraCAPTCHA" id="binaraCAPTCHA" />';
-        $html .='<br />';
-        $html .='<a href="javascript: document.getElementById(\'binaraCAPTCHA\').src = \'' . $imagePath . 'image.php?seed=\' + Math.random();">Reload</a>';
+        $html .= '<img src="' . $imagePath . 'image.php" alt="binaraCAPTCHA" title="binaraCAPTCHA" id="binaraCAPTCHA" />';
+        $html .= '<br />';
+        $html .= '<a href="javascript: document.getElementById(\'binaraCAPTCHA\').src = \'' . $imagePath . 'image.php?seed=\' + Math.random();">';
+        $html .= $htmlHelperReloadHelpText;
+        $html .= '</a>';
         $html .= '<br />';
         $html .= '<input type="text" id="' . $inputFieldName . '" name="' . $inputFieldName . '" />';
         $html .='</div>';

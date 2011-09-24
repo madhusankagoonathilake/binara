@@ -35,7 +35,7 @@ class binaraConfig {
         if (array_key_exists($key, $this->configurations)) {
             return $this->configurations[$key];
         } else {
-            throw new Exception('Tried to access an undefined property' . $key);
+            throw new Exception('Tried to access an undefined property ' . $key);
         }
     }
 

@@ -27,13 +27,16 @@ class binaraHTMLHelper {
     public function renderCAPTCHADiv($output = true) {
         $imagePath = binaraConfig::instance()->get('html-helper-image-path');
 
+        $inputFieldName = binaraConfig::instance()->get('input-field-name');
+        $htmlHelperDivId = binaraConfig::instance()->get('html-helper-div-id');
+        
         $html = '';
-        $html .= '<div id="' . binaraConfig::instance()->get('html-helper-div-id') . '">';
+        $html .= '<div id="' . $htmlHelperDivId . '">';
         $html .='<img src="' . $imagePath . 'image.php" alt="binaraCAPTCHA" title="binaraCAPTCHA" id="binaraCAPTCHA" />';
         $html .='<br />';
         $html .='<a href="javascript: document.getElementById(\'binaraCAPTCHA\').src = \'' . $imagePath . 'image.php?seed=\' + Math.random();">Reload</a>';
         $html .= '<br />';
-        $html .= '<input type="text" id="binaraCAPTCHATextInput" name="binaraCAPTCHATextInput" />';
+        $html .= '<input type="text" id="' . $inputFieldName . '" name="' . $inputFieldName . '" />';
         $html .='</div>';
 
         if ($output) {

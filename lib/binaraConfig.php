@@ -28,6 +28,9 @@ class binaraConfig {
             'html-helper-div-id' => 'divCAPTCHA',
             'html-helper-reload-help-text' => 'Reload Image',
             'html-helper-input-field-name' => 'binaraCAPTCHATextInput',
+            'html-helper-input-label-text' => 'Enter the characters shown in the image',
+            'html-helper-input-tip-span-id' => 'binaraCAPTCHAInputTip',
+            'html-helper-input-tip-text' => 'Letters are case-sensitive',
         );
     }
 

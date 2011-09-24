@@ -23,11 +23,11 @@ class binaraConfig {
             'height' => 80,
             'min-number-of-chars' => 4,
             'max-number-of-chars' => 6,
-            'input-field-name' => 'binaraCAPTCHATextInput',
             'session-value-index' => 'binara.CAPTCHA-string',
             'html-helper-image-path' => './',
             'html-helper-div-id' => 'divCAPTCHA',
             'html-helper-reload-help-text' => 'Reload Image',
+            'html-helper-input-field-name' => 'binaraCAPTCHATextInput',
         );
     }
 

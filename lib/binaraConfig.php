@@ -41,5 +41,13 @@ class binaraConfig {
             throw new Exception('Tried to access an undefined property ' . $key);
         }
     }
+    
+    public function set(array $configs) {
+        foreach ($configs as $key => $value) {
+            if (array_key_exists($key, $this->configurations)) {
+                $this->configurations[$key] = $value;
+            }
+        }
+    }
 
 }

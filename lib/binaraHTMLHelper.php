@@ -43,9 +43,12 @@ class binaraHTMLHelper {
         $html .= '<br />';
         $html .= '<span id="' . $inputTipSpanId . '">' . $inputTipText . '</span>';
         $html .= '<br />';
-        $html .= '<a href="javascript: document.getElementById(\'binaraCAPTCHA\').src = \'' . $imagePath . 'image.php?seed=\' + Math.random();">';
+        $html .= '<a href="javascript: binara_reloadImage();">';
         $html .= $htmlHelperReloadHelpText;
         $html .= '</a>';
+        $html .= '<script type="text/javascript">';
+        $html .= 'function binara_reloadImage() { document.getElementById(\'binaraCAPTCHA\').src = \'' . $imagePath . 'image.php?seed=\' + Math.random(); }';
+        $html .= '</script>';
         $html .='</div>';
 
         if ($output) {

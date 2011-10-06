@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * binara ver 1.0
+ * http://code.google.com/p/binara/
+ * 
+ * Copyright (c) 2011 Madhusanka Goonathilake
+ * 
+ * Licensed under the MIT licenses.
+ * http://code.google.com/p/binara/wiki/License
+ */
 class binaraConfig {
 
     private $configurations;
@@ -15,7 +24,7 @@ class binaraConfig {
         }
         return self::$instance;
     }
-    
+
     private function __construct() {
         $this->configurations = array(
             'fonts-directory' => dirname(__FILE__) . '/../fonts/',
@@ -41,7 +50,7 @@ class binaraConfig {
             throw new Exception('Tried to access an undefined property ' . $key);
         }
     }
-    
+
     public function set(array $configs) {
         foreach ($configs as $key => $value) {
             if (array_key_exists($key, $this->configurations)) {

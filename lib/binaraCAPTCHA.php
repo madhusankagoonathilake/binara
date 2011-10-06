@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * binara ver 1.0
+ * http://code.google.com/p/binara/
+ * 
+ * Copyright (c) 2011 Madhusanka Goonathilake
+ * 
+ * Licensed under the MIT licenses.
+ * http://code.google.com/p/binara/wiki/License
+ */
 class binaraCAPTCHA {
 
     private static $instance;
@@ -59,7 +68,7 @@ class binaraCAPTCHA {
 
             $boundBox = imageftbbox($size, $angle, $font, $char);
 
-            $x += ($boundBox[2] - $boundBox[0]) + rand(7,8);
+            $x += ($boundBox[2] - $boundBox[0]) + rand(7, 8);
             $y = 50 + floor(($boundBox[7] - $boundBox[1]) / 3);
 
             $midLeftX = $x + floor(($boundBox[6] + $boundBox[0]) / 8);
@@ -78,7 +87,7 @@ class binaraCAPTCHA {
 
             imagefttext($image, $size, $angle, $x, $y, $black, $font, $char);
         }
-        
+
         binaraImageHelper::instance()->addNoise($image);
 
         $this->image = $image;

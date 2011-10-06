@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * binara ver 1.0
+ * http://code.google.com/p/binara/
+ * 
+ * Copyright (c) 2011 Madhusanka Goonathilake
+ * 
+ * Licensed under the MIT licenses.
+ * http://code.google.com/p/binara/wiki/License
+ */
 class binaraHTMLHelper {
 
     private static $instance;
@@ -33,7 +42,7 @@ class binaraHTMLHelper {
         $htmlHelperReloadHelpText = binaraConfig::instance()->get('html-helper-reload-help-text');
         $inputTipSpanId = binaraConfig::instance()->get('html-helper-input-tip-span-id');
         $inputTipText = binaraConfig::instance()->get('html-helper-input-tip-text');
-        
+
         $html = '';
         $html .= '<div id="' . $htmlHelperDivId . '">';
         $html .= '<img src="' . $imagePath . 'image.php" alt="binaraCAPTCHA" title="binaraCAPTCHA" id="binaraCAPTCHA" />';

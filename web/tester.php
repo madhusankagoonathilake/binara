@@ -1,4 +1,13 @@
 <?php
+/**
+ * binara ver 1.0
+ * http://code.google.com/p/binara/
+ * 
+ * Copyright (c) 2011 Madhusanka Goonathilake
+ * 
+ * Licensed under the MIT licenses.
+ * http://code.google.com/p/binara/wiki/License
+ */
 @session_start();
 
 require_once '../lib/binaraHTMLHelper.php';
@@ -9,12 +18,12 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['binaraCAPTCHATextInput'])) {
-        $input = htmlentities(trim($_POST['binaraCAPTCHATextInput'])) ;
-      if (binaraCAPTCHA::instance()->verify($input)) {
-          $message = 'You have entered the correct value';
-      } else {
-          $message = 'You have entered a wrong value. You are probably a bot!';
-      }
+        $input = htmlentities(trim($_POST['binaraCAPTCHATextInput']));
+        if (binaraCAPTCHA::instance()->verify($input)) {
+            $message = 'You have entered the correct value';
+        } else {
+            $message = 'You have entered a wrong value. You are probably a bot!';
+        }
     } else {
         $message = 'This is very unlikely, but CAPTCHA text is missing in POST data!';
     }

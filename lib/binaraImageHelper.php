@@ -32,11 +32,13 @@ class binaraImageHelper {
             $factor = ceil($i / 2) * (($i % 2 === 0) ? 1 : -1);
             imageline($image, $x1, ($y1 + $factor), $x2, ($y2 + $factor), $color);
         }
+        return true;
     }
     
     public function addNoise(&$image) {
         imagefilter($image, IMG_FILTER_PIXELATE, 2, true);
         imagefilter($image, IMG_FILTER_SMOOTH, 4);
+        return true;
     }
 }
 

@@ -53,6 +53,20 @@ class binaraCAPTCHATest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @covers binaraCAPTCHA::getMathHelper
+     * @covers binaraCAPTCHA::setMathHelper
+     */
+    public function testGettingAndSettingMathHelper() {
+        $result = $this->captcha->getMathHelper();
+        $this->assertTrue($result instanceof binaraMathHelper);
+
+        $helper = binaraMathHelper::instance();
+        $this->captcha->setMathHelper($helper);
+        $result = $this->captcha->getMathHelper();
+        $this->assertEquals($helper, $result);
+    }
+
+    /**
      * @covers binaraCAPTCHA::draw
      * @covers binaraCAPTCHA::generateImage
      * @covers binaraCAPTCHA::generateRandomChars

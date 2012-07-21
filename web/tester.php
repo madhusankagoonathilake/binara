@@ -10,6 +10,7 @@
  */
 @session_start();
 
+require_once '../lib/binaraMathHelper.php';
 require_once '../lib/binaraHTTPHelper.php';
 require_once '../lib/binaraHTMLHelper.php';
 require_once '../lib/binaraCAPTCHA.php';

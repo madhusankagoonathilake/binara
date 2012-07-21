@@ -15,6 +15,7 @@ class binaraCAPTCHA {
     private $image;
     private $config;
     private $httpHelper;
+    private $mathHelper;
 
     /**
      * Private constructor 
@@ -51,6 +52,25 @@ class binaraCAPTCHA {
      */
     public function setHttpHelper(binaraHTTPHelper $httpHelper) {
         $this->httpHelper = $httpHelper;
+    }
+
+    /**
+     *
+     * @return binaraMathHelper 
+     */
+    public function getMathHelper() {
+        if (!($this->mathHelper instanceof binaraMathHelper)) {
+            $this->mathHelper = binaraMathHelper::instance();
+        }
+        return $this->mathHelper;
+    }
+
+    /**
+     *
+     * @param binaraMathHelper $mathHelper 
+     */
+    public function setMathHelper(binaraMathHelper $mathHelper) {
+        $this->mathHelper = $mathHelper;
     }
 
     /**
@@ -98,19 +118,19 @@ class binaraCAPTCHA {
 
         imagefill($image, 0, 0, $white);
 
-        $x = rand(5, 8);
+        $x = $this->getMathHelper()->generateRandomNumber(5, 8);
 
         $prevMidRightX = null;
         $prevMidRightY = null;
 
         foreach ($chars as $i => $char) {
-            $size = rand(20, 30);
-            $angle = rand(0, 20) * ((rand(100, 999) % 2 == 1) ? 1 : -1);
+            $size = $this->getMathHelper()->generateRandomNumber(20, 30);
+            $angle = $this->getMathHelper()->generateRandomNumber(0, 20) * ((rand(100, 999) % 2 == 1) ? 1 : -1);
             $font = $fonts[rand(0, $maxFontIndex)];
 
             $boundBox = imageftbbox($size, $angle, $font, $char);
 
-            $x += ($boundBox[2] - $boundBox[0]) + rand(7, 8);
+            $x += ($boundBox[2] - $boundBox[0]) + $this->getMathHelper()->generateRandomNumber(7, 8);
             $y = 50 + floor(($boundBox[7] - $boundBox[1]) / 3);
 
             $midLeftX = $x + floor(($boundBox[6] + $boundBox[0]) / 8);
@@ -140,10 +160,10 @@ class binaraCAPTCHA {
      * @return array 
      */
     protected final function generateRandomChars() {
-        $length = rand($this->config->get('min-number-of-chars'), $this->config->get('max-number-of-chars'));
+        $length = $this->getMathHelper()->generateRandomNumber($this->config->get('min-number-of-chars'), $this->config->get('max-number-of-chars'));
         $chars = array();
         for ($i = 0; $i < $length; $i++) {
-            $seed = rand(100, 999);
+            $seed = $this->getMathHelper()->generateRandomNumber(100, 999);
             $charCode = $this->generateRandomCharCode($seed);
             $chars[] = chr($charCode);
         }
@@ -159,11 +179,11 @@ class binaraCAPTCHA {
         $remainder = $seed % 3;
         $charCode = null;
         if ($remainder == 0) {
-            $charCode = rand(48, 57);
+            $charCode = $this->getMathHelper()->generateRandomNumber(48, 57);
         } elseif ($remainder == 1) {
-            $charCode = rand(65, 90);
+            $charCode = $this->getMathHelper()->generateRandomNumber(65, 90);
         } else {
-            $charCode = rand(97, 122);
+            $charCode = $this->getMathHelper()->generateRandomNumber(97, 122);
         }
         return $charCode;
     }

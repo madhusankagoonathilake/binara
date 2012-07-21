@@ -8,6 +8,7 @@
     <testsuites>
         <testsuite name="binaraCAPTCHA_AllTests">
             <file>lib/binaraConfigTest.php</file>
+            <file>lib/binaraMathHelperTest.php</file>
             <file>lib/binaraHTTPHelperTest.php</file>
             <file>lib/binaraImageHelperTest.php</file>
             <file>lib/binaraCAPTCHATest.php</file>

@@ -50,13 +50,13 @@ class binaraConfig {
      * Returns the relevant configuration value for the passed key
      * @param string $key
      * @return mixed
-     * @throws Exception 
+     * @throws binaraException 
      */
     public function get($key) {
         if (array_key_exists($key, $this->configurations)) {
             return $this->configurations[$key];
         } else {
-            throw new Exception('Tried to access an undefined property ' . $key);
+            throw new binaraException('Tried to access an undefined property ' . $key);
         }
     }
 

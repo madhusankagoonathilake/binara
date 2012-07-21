@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<phpunit 
+    colors="false" 
+    convertErrorsToExceptions="true" 
+    convertNoticesToExceptions="true" 
+    convertWarningsToExceptions="true" 
+    stopOnFailure="true">
+    <testsuites>
+        <testsuite name="binaraCAPTCHA_AllTests">
+            <file>lib/binaraConfigTest.php</file>
+            <file>lib/binaraHTTPHelperTest.php</file>
+            <file>lib/binaraImageHelperTest.php</file>
+            <file>lib/binaraCAPTCHATest.php</file>
+            <file>lib/binaraHTMLHelperTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

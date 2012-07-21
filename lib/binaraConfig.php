@@ -25,6 +25,9 @@ class binaraConfig {
         return self::$instance;
     }
 
+    /**
+     * Private constructor
+     */
     private function __construct() {
         $this->configurations = array(
             'fonts-directory' => dirname(__FILE__) . '/../fonts/',
@@ -43,6 +46,12 @@ class binaraConfig {
         );
     }
 
+    /**
+     * Returns the relevant configuration value for the passed key
+     * @param string $key
+     * @return mixed
+     * @throws Exception 
+     */
     public function get($key) {
         if (array_key_exists($key, $this->configurations)) {
             return $this->configurations[$key];
@@ -51,6 +60,10 @@ class binaraConfig {
         }
     }
 
+    /**
+     * Sets the configuration values
+     * @param array $configs 
+     */
     public function set(array $configs) {
         foreach ($configs as $key => $value) {
             if (array_key_exists($key, $this->configurations)) {

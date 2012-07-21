@@ -10,6 +10,7 @@
  * http://code.google.com/p/binara/wiki/License
  */
 class binaraImageHelper {
+
     private static $instance;
 
     /**
@@ -22,11 +23,14 @@ class binaraImageHelper {
         }
         return self::$instance;
     }
-    
+
+    /**
+     * Private constructor 
+     */
     private function __construct() {
         
     }
-    
+
     public function addThickLine(&$image, $x1, $y1, $x2, $y2, $color, $thickness = 1) {
         for ($i = 0; $i < $thickness; $i++) {
             $factor = ceil($i / 2) * (($i % 2 === 0) ? 1 : -1);
@@ -34,11 +38,12 @@ class binaraImageHelper {
         }
         return true;
     }
-    
+
     public function addNoise(&$image) {
         imagefilter($image, IMG_FILTER_PIXELATE, 2, true);
         imagefilter($image, IMG_FILTER_SMOOTH, 4);
         return true;
     }
+
 }
 

@@ -13,23 +13,26 @@ class binaraHTMLHelper {
 
     private static $instance;
 
+    /**
+     * Private constructor 
+     */
     private function __construct() {
         
     }
 
     /**
-     *
+     * Returns the single instance of binaraHTMLHelper
      * @return binaraHTMLHelper
      */
     public static function instance() {
-        if (!(self::$instance instanceof binaraCAPTCHA)) {
+        if (!(self::$instance instanceof binaraHTMLHelper)) {
             self::$instance = new self();
         }
         return self::$instance;
     }
 
     /**
-     *
+     * Renders an HTML div containing the CAPTCHA image and other relevant controls
      * @param bool $output
      * @return string 
      */

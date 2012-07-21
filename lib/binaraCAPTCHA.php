@@ -79,7 +79,7 @@ class binaraCAPTCHA {
      * @return bool 
      */
     public function verify($input) {
-        return ($_SESSION[$this->config->get('session-value-index')] == $input);
+        return ($this->getHttpHelper()->getSessionValue($this->config->get('session-value-index')) == $input);
     }
 
     /**
@@ -173,7 +173,7 @@ class binaraCAPTCHA {
      * @param array $chars 
      */
     protected final function storeString(array $chars) {
-        $_SESSION[$this->config->get('session-value-index')] = implode('', $chars);
+        $this->getHttpHelper()->setSessionValue($this->config->get('session-value-index'), $chars);
     }
 
     /**

@@ -42,5 +42,24 @@ class binaraHTTPHelper {
         }
         return true;
     }
+    
+    /**
+     *
+     * @param string $key
+     * @param mixed $value 
+     */
+    public function setSessionValue($key, $value) {
+        $_SESSION[$key] = $value;
+        return true;
+    }
+    
+    /**
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getSessionValue($key) {
+        return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : null;
+    }
 
 }

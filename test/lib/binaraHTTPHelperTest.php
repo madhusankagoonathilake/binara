@@ -26,7 +26,7 @@ class binaraHTTPHelperTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        
+        @session_destroy();
     }
 
     /**
@@ -42,6 +42,16 @@ class binaraHTTPHelperTest extends PHPUnit_Framework_TestCase {
      */
     public function testSendHeaders() {
         $this->assertTrue($this->httpHelper->sendHeaders(array('Test-header' => 'test-value')));
+    }
+
+    public function testSetSessionValue() {
+        $this->httpHelper->setSessionValue('test-key', 'test-value');
+        $this->assertEquals('test-value', $_SESSION['test-key']);
+    }
+
+    public function testGetSessionValue() {
+        $_SESSION['example-key'] = 'example-value';
+        $this->assertEquals('example-value', $this->httpHelper->getSessionValue('example-key'));
     }
 
 }

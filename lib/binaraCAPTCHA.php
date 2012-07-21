@@ -15,6 +15,9 @@ class binaraCAPTCHA {
     private $image;
     private $config;
 
+    /**
+     * Private constructor 
+     */
     private function __construct() {
         $this->config = binaraConfig::instance();
     }
@@ -30,6 +33,9 @@ class binaraCAPTCHA {
         return self::$instance;
     }
 
+    /**
+     * Outputs the CAPTCHA image
+     */
     public function draw() {
         $chars = $this->generateRandomChars();
         $this->generateImage($chars);
@@ -40,10 +46,20 @@ class binaraCAPTCHA {
         imagedestroy($this->image);
     }
 
+    /**
+     * Verifies whether the passed input matches with the last generated CAPTCHA
+     * for the current HTTP session
+     * @param string $input
+     * @return bool 
+     */
     public function verify($input) {
         return ($_SESSION[$this->config->get('session-value-index')] == $input);
     }
 
+    /**
+     * Generates the CAPTCHA image using the passed set of characters, using GD
+     * @param array $chars 
+     */
     protected final function generateImage(array $chars) {
 
         $image = imagecreatetruecolor($this->config->get('width'), $this->config->get('height'));
@@ -94,7 +110,7 @@ class binaraCAPTCHA {
     }
 
     /**
-     *
+     * Generates a random set of characters for the CAPTCHA image
      * @return array 
      */
     protected final function generateRandomChars() {
@@ -115,10 +131,18 @@ class binaraCAPTCHA {
         return $chars;
     }
 
+    /**
+     * Saves the generated string for the image, in the current HTTP session
+     * @param array $chars 
+     */
     protected final function storeString(array $chars) {
         $_SESSION[$this->config->get('session-value-index')] = implode('', $chars);
     }
 
+    /**
+     * Discovers the font files in the fonts directory, specified in the configuration
+     * @return array 
+     */
     protected final function getFontPaths() {
         $paths = array();
         $fontsDirectory = $this->config->get('fonts-directory');

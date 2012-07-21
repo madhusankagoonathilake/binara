@@ -14,6 +14,7 @@ class binaraCAPTCHA {
     private static $instance;
     private $image;
     private $config;
+    private $httpHelper;
 
     /**
      * Private constructor 
@@ -34,16 +35,41 @@ class binaraCAPTCHA {
     }
 
     /**
+     *
+     * @return binaraHTTPHelper 
+     */
+    public function getHttpHelper() {
+        if (!($this->httpHelper instanceof binaraHTMLHelper)) {
+            $this->httpHelper = binaraHTTPHelper::instance();
+        }
+        return $this->httpHelper;
+    }
+
+    /**
+     *
+     * @param binaraHTTPHelper $httpHelper 
+     */
+    public function setHttpHelper(binaraHTTPHelper $httpHelper) {
+        $this->httpHelper = $httpHelper;
+    }
+
+    /**
      * Outputs the CAPTCHA image
      */
     public function draw() {
         $chars = $this->generateRandomChars();
         $this->generateImage($chars);
         $this->storeString($chars);
+
         @ob_clean();
-        header('Content-type: image/png');
+        $this->getHttpHelper()->sendHeaders(array(
+            'Content-type' => 'image/png',
+        ));
+
         imagepng($this->image);
         imagedestroy($this->image);
+
+        return true;
     }
 
     /**
@@ -118,17 +144,28 @@ class binaraCAPTCHA {
         $chars = array();
         for ($i = 0; $i < $length; $i++) {
             $seed = rand(100, 999);
-            $remainder = $seed % 3;
-            if ($remainder == 0) {
-                $charCode = rand(48, 57);
-            } elseif ($remainder == 1) {
-                $charCode = rand(65, 90);
-            } else {
-                $charCode = rand(97, 122);
-            }
+            $charCode = $this->generateRandomCharCode($seed);
             $chars[] = chr($charCode);
         }
         return $chars;
+    }
+
+    /**
+     *
+     * @param int $seed
+     * @return int 
+     */
+    protected final function generateRandomCharCode($seed) {
+        $remainder = $seed % 3;
+        $charCode = null;
+        if ($remainder == 0) {
+            $charCode = rand(48, 57);
+        } elseif ($remainder == 1) {
+            $charCode = rand(65, 90);
+        } else {
+            $charCode = rand(97, 122);
+        }
+        return $charCode;
     }
 
     /**

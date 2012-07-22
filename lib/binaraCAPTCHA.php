@@ -8,6 +8,8 @@
  * 
  * Licensed under the MIT licenses.
  * http://code.google.com/p/binara/wiki/License
+ * 
+ * @package binara-core
  */
 class binaraCAPTCHA {
 

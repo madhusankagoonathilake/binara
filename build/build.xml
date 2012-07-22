@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<!--
+ binara ver 1.0
+ http://code.google.com/p/binara/
+ 
+ Copyright (c) 2011 Madhusanka Goonathilake
+ 
+ Licensed under the MIT licenses.
+ http://code.google.com/p/binara/wiki/License
+-->
+<project name="binaraCAPTCHA" default="dist">
+
+    <property name="product.name" value="binara"/>
+    
+    <property name="package.version.major" value="1"/>
+    <property name="package.version.minor" value="0"/>
+    <property name="package.version.build" value="rc1"/>
+    
+    <property name="package.name" value="${product.name}-${package.version.major}.${package.version.minor}"/>
+    
+    <resolvepath propertyName="dir.project" file=".."/>
+    <resolvepath propertyName="dir.distribution" file="dist"/>
+    
+    <property name="dir.source-files" value="${dir.distribution}/src"/>
+    <property name="dir.release-archives" value="${dir.distribution}/release-archives"/>
+    <property name="dir.reports" value="${dir.distribution}/reports"/>
+    <property name="dir.reports.test-coverage" value="${dir.reports}/test-coverage"/>
+    <property name="dir.api-documentation" value="${dir.distribution}/api-documentation"/>
+
+    <svnlastrevision workingcopy="${dir.project}" propertyname="svn.revision"/>
+    
+    <property name="build.name" value="${package.name}.${svn.revision}"/>
+
+    <target name="prepare-dist">
+        <echo msg="Preparing build..." />
+        <mkdir dir="${dir.distribution}" />
+        <mkdir dir="${dir.source-files}" />
+        <mkdir dir="${dir.release-archives}" />
+    </target>
+
+    <target name="prepare-all" depends="prepare-dist">
+        <mkdir dir="${dir.reports}" />
+        <mkdir dir="${dir.reports.test-coverage}" />
+        <mkdir dir="${dir.api-documentation}" />        
+    </target>
+ 
+    <target name="build" depends="clean,prepare-dist">
+        <echo>Copying files...</echo>
+        <copy todir="${dir.source-files}" includeemptydirs="true">
+            <fileset dir="${dir.project}">
+                <include name="**"/>
+                <include name="**/*.htaccess"/>
+                
+                <exclude name="nbproject"/>
+                <exclude name="nbproject/**"/>
+                <exclude name="test"/>
+                <exclude name="test/**"/>
+                <exclude name="build/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="dist" depends="build,test">
+        <echo message="Creating archives ..." />
+        
+        <svnupdate workingcopy="${dir.project}"/>
+        
+        <zip destfile="${dir.release-archives}/${build.name}.zip">
+            <fileset dir="${dir.source-files}">
+                <include name="**"/>
+            </fileset>
+        </zip>
+        <tar destfile="${dir.release-archives}/${build.name}.tar.gz" compression="gzip">
+            <fileset dir="${dir.source-files}">
+                <include name="**"/>
+            </fileset>
+        </tar>
+    </target>
+
+    <target name="clean">
+        <echo msg="Cleaning up..."/>
+        <delete dir="${dir.distribution}"/>
+    </target>
+
+    <target name="test">
+        <exec command="phpunit --configuration configuration.xml"
+              checkreturn="true" dir="${dir.project}/test" passthru="true"/>
+    </target>
+
+
+    <target name="test-coverage" depends="prepare-all">
+        <exec command="phpunit --coverage-html ${dir.reports.test-coverage} --configuration configuration.xml"
+              checkreturn="true" dir="${dir.project}/test" passthru="true"/>
+    </target>
+
+    <target name="api-documentation" depends="prepare-all">
+        <phpdoc title="binaraCAPTCHA API Documentation" destdir="${dir.api-documentation}" output="HTML:Smarty:PHP">
+            <fileset dir="${dir.project}/lib">
+            </fileset>
+        </phpdoc>
+    </target>
+    
+    <target name="dist-all" depends="dist,test-coverage,api-documentation">
+        
+    </target>
+
+</project>

@@ -18,6 +18,7 @@ class binaraCAPTCHA {
     private $config;
     private $httpHelper;
     private $mathHelper;
+    private $cryptographyHelper;
 
     /**
      * Private constructor 
@@ -76,6 +77,25 @@ class binaraCAPTCHA {
     }
 
     /**
+     * Returns the local instance of the cryptographyHelper
+     * @return binaraCryptographyHelper 
+     */
+    public function getCryptographyHelper() {
+        if (!($this->cryptographyHelper instanceof binaraCryptographyHelper)) {
+            $this->cryptographyHelper = binaraCryptographyHelper::instance();
+        }
+        return $this->cryptographyHelper;
+    }
+
+    /**
+     * Sets the local instance of the cryptographyHelper
+     * @param binaraCryptographyHelper $cryptographyHelper 
+     */
+    public function setCryptographyHelper(binaraCryptographyHelper $cryptographyHelper) {
+        $this->cryptographyHelper = $cryptographyHelper;
+    }
+
+    /**
      * Outputs the CAPTCHA image
      */
     public function draw() {
@@ -101,7 +121,8 @@ class binaraCAPTCHA {
      * @return bool 
      */
     public function verify($input) {
-        return ($this->getHttpHelper()->getSessionValue($this->config->get('session-value-index')) == $input);
+        $inputHash = $this->getCryptographyHelper()->hash($input);
+        return ($this->getHttpHelper()->getSessionValue($this->config->get('session-value-index')) == $inputHash);
     }
 
     /**
@@ -195,7 +216,8 @@ class binaraCAPTCHA {
      * @param array $chars 
      */
     protected final function storeString(array $chars) {
-        $this->getHttpHelper()->setSessionValue($this->config->get('session-value-index'), $chars);
+        $stringHash = $this->getCryptographyHelper()->hash(implode('', $chars));
+        $this->getHttpHelper()->setSessionValue($this->config->get('session-value-index'), $stringHash);
     }
 
     /**

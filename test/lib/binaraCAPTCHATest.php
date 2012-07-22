@@ -67,6 +67,20 @@ class binaraCAPTCHATest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @covers binaraCAPTCHA::getCryptographyHelper
+     * @covers binaraCAPTCHA::setCryptographyHelper
+     */
+    public function testGettingAndSettingCryptographyHelper() {
+        $result = $this->captcha->getCryptographyHelper();
+        $this->assertTrue($result instanceof binaraCryptographyHelper);
+
+        $helper = binaraCryptographyHelper::instance();
+        $this->captcha->setCryptographyHelper($helper);
+        $result = $this->captcha->getCryptographyHelper();
+        $this->assertEquals($helper, $result);
+    }
+
+    /**
      * @covers binaraCAPTCHA::draw
      * @covers binaraCAPTCHA::generateImage
      * @covers binaraCAPTCHA::generateRandomChars
@@ -82,7 +96,7 @@ class binaraCAPTCHATest extends PHPUnit_Framework_TestCase {
 
         $this->captcha->setMathHelper($mathHelperMock);
 
-        /* Assersions are run twice to cover the possible number combinations generated randomly*/
+        /* Assersions are run twice to cover the possible number combinations generated randomly */
         $this->assertTrue($this->captcha->draw());
         $this->assertTrue($this->captcha->draw());
         @ob_clean();
@@ -93,7 +107,8 @@ class binaraCAPTCHATest extends PHPUnit_Framework_TestCase {
      */
     public function testVerify() {
         @session_start();
-        $_SESSION[binaraConfig::instance()->get('session-value-index')] = 'captcha-text';
+        $sampleHash = $this->captcha->getCryptographyHelper()->hash('captcha-text');
+        $_SESSION[binaraConfig::instance()->get('session-value-index')] = $sampleHash;
         $this->assertFalse($this->captcha->verify('invalid-input'));
         $this->assertTrue($this->captcha->verify('captcha-text'));
     }

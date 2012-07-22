@@ -16,7 +16,7 @@
     <property name="package.version.minor" value="0"/>
     <property name="package.version.build" value="rc1"/>
     
-    <property name="package.name" value="${product.name}-${package.version.major}.${package.version.minor}"/>
+    <property name="package.name" value="${product.name}-${package.version.major}.${package.version.minor}-${package.version.build}"/>
     
     <resolvepath propertyName="dir.project" file=".."/>
     <resolvepath propertyName="dir.distribution" file="dist"/>

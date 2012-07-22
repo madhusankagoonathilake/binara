@@ -15,7 +15,7 @@ class binaraConfig {
     private static $instance;
 
     /**
-     *
+     * Returns the single instance of binaraConfig
      * @return binaraConfig 
      */
     public static function instance() {

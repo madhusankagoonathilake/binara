@@ -25,7 +25,7 @@ class binaraCAPTCHA {
     }
 
     /**
-     *
+     * Returns the single instance of binaraCAPTCHA
      * @return binaraCAPTCHA 
      */
     public static function instance() {
@@ -36,7 +36,7 @@ class binaraCAPTCHA {
     }
 
     /**
-     *
+     * Returns the local instance of the httpHelper
      * @return binaraHTTPHelper 
      */
     public function getHttpHelper() {
@@ -47,7 +47,7 @@ class binaraCAPTCHA {
     }
 
     /**
-     *
+     * Sets the local instance of the httpHelper
      * @param binaraHTTPHelper $httpHelper 
      */
     public function setHttpHelper(binaraHTTPHelper $httpHelper) {
@@ -55,7 +55,7 @@ class binaraCAPTCHA {
     }
 
     /**
-     *
+     * Returns the local instance of the mathHelper
      * @return binaraMathHelper 
      */
     public function getMathHelper() {
@@ -66,7 +66,7 @@ class binaraCAPTCHA {
     }
 
     /**
-     *
+     * Sets the local instance of the mathHelper
      * @param binaraMathHelper $mathHelper 
      */
     public function setMathHelper(binaraMathHelper $mathHelper) {
@@ -171,7 +171,7 @@ class binaraCAPTCHA {
     }
 
     /**
-     *
+     * Generates a random character code (ASCII) in the alpha-numeric range based on the passed seed
      * @param int $seed
      * @return int 
      */

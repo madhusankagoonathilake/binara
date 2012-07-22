@@ -21,7 +21,7 @@ class binaraMathHelper {
     }
 
     /**
-     *
+     * Returns the single instance of binaraMathHelper
      * @return binaraMathHelper 
      */
     public static function instance() {
@@ -32,7 +32,7 @@ class binaraMathHelper {
     }
 
     /**
-     *
+     * Generates a random integer between the given min & max values (including them)
      * @param int $min
      * @param int $max
      * @return int 

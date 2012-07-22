@@ -21,7 +21,7 @@ class binaraHTTPHelper {
     }
 
     /**
-     *
+     * Returns the single instance of binaraHTTPHelper
      * @return binaraHTTPHelper 
      */
     public static function instance() {
@@ -32,7 +32,7 @@ class binaraHTTPHelper {
     }
 
     /**
-     *
+     * Sends the HTTP headers based on header array passed (as a key-value pair)
      * @param array $headers 
      * @return bool
      */
@@ -42,9 +42,9 @@ class binaraHTTPHelper {
         }
         return true;
     }
-    
+
     /**
-     *
+     * Sets an HTTP session value with the passed key and value
      * @param string $key
      * @param mixed $value 
      */
@@ -52,9 +52,10 @@ class binaraHTTPHelper {
         $_SESSION[$key] = $value;
         return true;
     }
-    
+
     /**
-     *
+     * Returns the value stored in the HTTP session in the given key. Returns null
+     * if the key doesn't exist
      * @param string $key
      * @return mixed
      */

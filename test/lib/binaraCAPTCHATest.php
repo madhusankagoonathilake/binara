@@ -75,6 +75,15 @@ class binaraCAPTCHATest extends PHPUnit_Framework_TestCase {
      * @covers binaraCAPTCHA::getFontPaths
      */
     public function testDraw() {
+        $mathHelperMock = $this->getMock('binaraMathHelper', array('generateRandomNumber'), array(), '', false);
+        $mathHelperMock->expects($this->any())
+                ->method('generateRandomNumber')
+                ->will($this->onConsecutiveCalls(30, 31, 32, 62, 63, 64));
+
+        $this->captcha->setMathHelper($mathHelperMock);
+
+        /* Assersions are run twice to cover the possible number combinations generated randomly*/
+        $this->assertTrue($this->captcha->draw());
         $this->assertTrue($this->captcha->draw());
         @ob_clean();
     }

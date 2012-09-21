@@ -108,9 +108,20 @@ class binaraCAPTCHATest extends PHPUnit_Framework_TestCase {
     public function testVerify() {
         @session_start();
         $sampleHash = $this->captcha->getCryptographyHelper()->hash('captcha-text');
-        $_SESSION[binaraConfig::instance()->get('session-value-index')] = $sampleHash;
+        $this->captcha->getHttpHelper()->setSessionValue(binaraConfig::instance()->get('session-value-index'), $sampleHash);
         $this->assertFalse($this->captcha->verify('invalid-input'));
         $this->assertTrue($this->captcha->verify('captcha-text'));
+    }
+
+    /**
+     * @covers binaraCAPTCHA::verify
+     */
+    public function testVerifyForCaseSensitivity() {
+        $sampleHash = $this->captcha->getCryptographyHelper()->hash('captcha-text');
+        $this->captcha->getHttpHelper()->setSessionValue(binaraConfig::instance()->get('session-value-index'), $sampleHash);
+        $this->assertTrue($this->captcha->verify('captcha-text'));
+        $this->assertTrue($this->captcha->verify('CaPtCha-TeXt'));
+        $this->assertTrue($this->captcha->verify('CAPTCHA-TEXT'));
     }
 
 }

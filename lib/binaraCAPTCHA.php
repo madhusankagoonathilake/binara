@@ -121,6 +121,7 @@ class binaraCAPTCHA {
      * @return bool 
      */
     public function verify($input) {
+        $input = strtolower($input);
         $inputHash = $this->getCryptographyHelper()->hash($input);
         return ($this->getHttpHelper()->getSessionValue($this->config->get('session-value-index')) == $inputHash);
     }
@@ -216,7 +217,8 @@ class binaraCAPTCHA {
      * @param array $chars 
      */
     protected final function storeString(array $chars) {
-        $stringHash = $this->getCryptographyHelper()->hash(implode('', $chars));
+        $string = strtolower(implode('', $chars));
+        $stringHash = $this->getCryptographyHelper()->hash($string);
         $this->getHttpHelper()->setSessionValue($this->config->get('session-value-index'), $stringHash);
     }
 

@@ -19,6 +19,7 @@ class binaraCAPTCHA {
     private $httpHelper;
     private $mathHelper;
     private $cryptographyHelper;
+    private $codesOfAmbiguousCharacters = array(105, 108, 73, 79, 111);
 
     /**
      * Private constructor 
@@ -202,13 +203,17 @@ class binaraCAPTCHA {
     protected final function generateRandomCharCode($seed) {
         $remainder = $seed % 3;
         $charCode = null;
-        if ($remainder == 0) {
-            $charCode = $this->getMathHelper()->generateRandomNumber(48, 57);
-        } elseif ($remainder == 1) {
-            $charCode = $this->getMathHelper()->generateRandomNumber(65, 90);
-        } else {
-            $charCode = $this->getMathHelper()->generateRandomNumber(97, 122);
-        }
+
+        do {
+            if ($remainder == 0) {
+                $charCode = $this->getMathHelper()->generateRandomNumber(50, 57);
+            } elseif ($remainder == 1) {
+                $charCode = $this->getMathHelper()->generateRandomNumber(65, 90);
+            } else {
+                $charCode = $this->getMathHelper()->generateRandomNumber(97, 122);
+            }
+        } while (in_array($charCode, $this->codesOfAmbiguousCharacters));
+
         return $charCode;
     }
 

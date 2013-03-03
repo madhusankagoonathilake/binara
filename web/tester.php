@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $message = 'You have entered a wrong value. You are probably a bot!';
         }
     } else {
-        $message = 'This is very unlikely, but CAPTCHA text is missing in POST data!';
+        $message = 'Could not find data related to CAPTCHA text in the POST Request.';
     }
 } else {
     $message = 'Enter the text in the image and press [Check]';

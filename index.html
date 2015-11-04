@@ -23,6 +23,211 @@
 
 <p>This library was named as <strong>binara</strong>, since it was started on 2011-09-11, which is the <em>Binara <a href="https://en.wikipedia.org/wiki/Poya">Poya</a> Day</em> of the Buddhist calendar, for the year 2011</p>
 
+<h1>
+<a id="installation-guide" class="anchor" href="#installation-guide" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation Guide</h1>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>PHP Version: 5.2+ (5.3 recommended)</li>
+<li>GD Extension for PHP</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Extract the content of the release archive to the desired location of your application/website.</p>
+
+<p><em>Note:</em></p>
+
+<p>You may test whether everything is working by accessing the <code>web/tester.php</code> file via a web browser. (Example: <code>http://example.com/path-to-binara/web/tester.php</code>) This URL will contain a simple implementation of binara CAPTCHA verification.</p>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<h2>
+<a id="embedding-in-an-applicationwebsite" class="anchor" href="#embedding-in-an-applicationwebsite" aria-hidden="true"><span class="octicon octicon-link"></span></a>Embedding in an Application/Website</h2>
+
+<p>binara CAPTCHA can be simply embbed into an application/website by calling the <code>binaraHTMLHelper::renderCAPTCHADiv()</code> method.</p>
+
+<pre><code>&lt;form method="post"&gt;
+    &lt;?php binaraHTMLHelper::instance()-&gt;renderCAPTCHADiv(); ?&gt;
+    &lt;input type="submit" value="Check" /&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>This will embed an HTML <code>div</code> containing the following elements:</p>
+
+<ul>
+<li>CAPTCHA image</li>
+<li>Textbox for user input</li>
+<li>Link to load another CAPTCHA image</li>
+</ul>
+
+<p>The configurations of the rendered HTML can be set in the <code>binaraConfig</code> class at run-time as shown below:</p>
+
+<pre><code>&lt;?php
+binaraConfig::instance()-&gt;set(array(
+    'html-helper-div-id' =&gt; 'captcha_code',
+    'html-helper-reload-help-text' =&gt; 'Try Another Image',
+    'html-helper-input-field-name' =&gt; 'user_input',
+    'html-helper-input-label-text' =&gt; 'Enter what you see in the image',
+    'html-helper-input-tip-text' =&gt; 'Capital and simple matters',
+    'html-helper-input-tip-span-id' =&gt; 'tip_for_captcha',
+    'html-helper-image-path' =&gt; '../../my/customer/captcha/image/path',
+));
+?&gt;
+
+&lt;form method="post"&gt;
+    &lt;?php binaraHTMLHelper::instance()-&gt;renderCAPTCHADiv(); ?&gt;
+    &lt;input type="submit" value="Submit" /&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>Following configurations are available:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Configuration</strong></th>
+<th align="left"><strong>Description</strong></th>
+<th align="left"><strong>Default Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">html-helper-div-id</td>
+<td align="left">
+<code>id</code> attribute of the rendered <code>div</code> tag</td>
+<td align="left">divCAPTCHA</td>
+</tr>
+<tr>
+<td align="left">html-helper-reload-help-text</td>
+<td align="left">Text label of the link which reload the CAPTCHA image</td>
+<td align="left">Reload Image</td>
+</tr>
+<tr>
+<td align="left">html-helper-input-field-name</td>
+<td align="left">
+<code>name</code> attribute of the rendered text box for user input</td>
+<td align="left">binaraCAPTCHATextInput</td>
+</tr>
+<tr>
+<td align="left">html-helper-input-label-text</td>
+<td align="left">Text label for the rendered textbox</td>
+<td align="left">Enter the characters shown in the image</td>
+</tr>
+<tr>
+<td align="left">html-helper-input-tip-text</td>
+<td align="left">Additional tip to be shown to the user</td>
+<td align="left">Letters are case-sensitive</td>
+</tr>
+<tr>
+<td align="left">html-helper-input-tip-span-id</td>
+<td align="left">
+<code>id</code> attribute of the <code>span</code> tag which encloses the help tip</td>
+<td align="left">binaraCAPTCHAInputTip</td>
+</tr>
+<tr>
+<td align="left">html-helper-image-path</td>
+<td align="left">Path where the <code>image.php</code> file (found in the <code>web</code> directory) located at.</td>
+<td align="left">./</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="using-the-captcha-image-separately" class="anchor" href="#using-the-captcha-image-separately" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using the CAPTCHA Image Separately</h2>
+
+<p>To display the CAPTCHA image separately, there are two methods you can follow:</p>
+
+<ol>
+<li>Access the <code>image.php</code> file inside the <code>web</code> directory.</li>
+<li>Use the <code>draw()</code> method of an instance of <code>binaraCAPTCHA</code> class, inside your own PHP script.</li>
+</ol>
+
+<p><em>Examples:</em></p>
+
+<p><strong>Accessing <code>web/image.php</code></strong></p>
+
+<pre><code>&lt;img src="path/to/binara/web/image.php" alt="CAPTCHA" /&gt;
+</code></pre>
+
+<p><strong>Using the <code>draw()</code> Method</strong></p>
+
+<pre><code>&lt;?php
+@session_start();
+
+require_once '../lib/binaraCAPTCHA.php';
+require_once '../lib/binaraConfig.php';
+require_once '../lib/binaraMathHelper.php';
+require_once '../lib/binaraCryptographyHelper.php';
+require_once '../lib/binaraHTTPHelper.php';
+require_once '../lib/binaraImageHelper.php';
+
+binaraCAPTCHA::instance()-&gt;draw();
+</code></pre>
+
+<h2>
+<a id="comparing-user-entered-value" class="anchor" href="#comparing-user-entered-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comparing User Entered Value</h2>
+
+<p>The <code>verify()</code> method of <code>binaraCAPTCHA</code> class is used to verify whether user input matches with text of the CAPTCHA image shown.</p>
+
+<p><em>Example:</em></p>
+
+<p>(Assuming the name of the user input field is <code>binaraCAPTCHATextInput</code>)</p>
+
+<pre><code>&lt;?php
+@session_start();
+
+$message = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['binaraCAPTCHATextInput'])) {
+        $input = htmlentities(trim($_POST['binaraCAPTCHATextInput']));
+        if (binaraCAPTCHA::instance()-&gt;verify($input)) {
+            $message = 'You have entered the correct value';
+        } else {
+            $message = 'You have entered a wrong value. You are probably a bot!';
+        }
+    } else {
+        $message = 'This is very unlikely, but CAPTCHA text is missing in POST data!';
+    }
+} else {
+    $message = 'Enter the text in the image and press [Check]';
+}
+
+echo $message;
+</code></pre>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>Copyright (c) 2011 Madhusanka Goonathilake</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+
+<hr>
+
+<p>Click <a href="ThirdPartyLicenses.md">here</a> to see 3rd party licenses.</p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/madhusankagoonathilake/binara">binara</a> is maintained by <a href="https://github.com/madhusankagoonathilake">madhusankagoonathilake</a>.</span>
 
